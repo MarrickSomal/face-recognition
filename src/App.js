@@ -48,7 +48,9 @@ class App extends Component {
       email: data.email,
       entries: data.entries,
       joined: data.joined
-    }})
+    }
+    })
+    console.log(this.setState)
   }
 
   calculateFaceLocation = (data) => {
