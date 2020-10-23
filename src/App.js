@@ -50,8 +50,12 @@ class App extends Component {
       joined: data.joined
     }
     })
-    console.log(this.setState)
+    console.log(loadUser);
   }
+
+
+
+
 
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
