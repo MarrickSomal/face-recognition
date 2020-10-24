@@ -50,9 +50,7 @@ class App extends Component {
       joined: data.joined
     }
     })
-    console.log(loadUser);
   }
-
 
 
 
@@ -119,6 +117,7 @@ class App extends Component {
 
   render() {
     const { isSignedIn, imageUrl, route, box } = this.state;
+    console.log(this.props.loadUser);
     return (
       <div className="App">
          <Particles className='particles'
