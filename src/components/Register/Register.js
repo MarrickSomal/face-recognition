@@ -1,97 +1,101 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-class Register extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      name: ''
-    }
+function Register(props) {
+ 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const onNameChange = (event) => {
+    const newName = event.target.value;
+    setName(newName);
   }
 
-  onNameChange = (event) => {
-    this.setState({name: event.target.value})
+  const onEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
   }
 
-  onEmailChange = (event) => {
-    this.setState({email: event.target.value})
+  const onPasswordChange = (event) => {
+    const newPassword = event.target.value;
+    setPassword(newPassword);
   }
 
-  onPasswordChange = (event) => {
-    this.setState({password: event.target.value})
-  }
 
-  onSubmitSignIn = () => {
+
+  const onSubmitSignIn = () => {
     fetch('https://young-beyond-45329.herokuapp.com/register', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password,
-        name: this.state.name
+        email: email,
+        password: password,
+        name: name
       })
     })
       .then(response => response.json())
       .then(user => {
         if (user.id) {
-          this.props.loadUser(user)
-          this.props.onRouteChange('home');
+          props.loadUser(user)
+          props.onRouteChange('home');
         }
       })
   }
 
-  render() {
     return (
-      <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
-          <div className="measure">
-            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f1 fw6 ph0 mh0">Register</legend>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+      <article className="register-section">
+        <main className="register-form">
+          <div className="form-width">
+            <fieldset id="sign_up" className="form-fieldset">
+              <legend className="form-legend">Register</legend>
+              <div className="field-spacing">
+                <label className="field-label" htmlFor="name">Name</label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="field-input"
                   type="text"
                   name="name"
                   id="name"
-                  onChange={this.onNameChange}
+                  value={name}
+                  onChange={onNameChange}
                 />
               </div>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+              <div className="field-spacing">
+                <label className="field-label" htmlFor="email-address">Email</label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="field-input"
                   type="email"
                   name="email-address"
                   id="email-address"
-                  onChange={this.onEmailChange}
+                  value={email}
+                  onChange={onEmailChange}
                 />
               </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+              <div className="field-spacing">
+                <label className="field-label" htmlFor="password">Password</label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+                  className="field-input"
                   type="password"
                   name="password"
                   id="password"
-                  onChange={this.onPasswordChange}
+                  value={password}
+                  onChange={onPasswordChange}
                 />
               </div>
             </fieldset>
-            <div className="">
-              <input
-                onClick={this.onSubmitSignIn}
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+            <div className="field-spacing">
+              <button
+                onClick={onSubmitSignIn}
+                className="register-button"
                 type="submit"
                 value="Register"
-              />
+              >
+                Register
+              </button>
             </div>
           </div>
         </main>
       </article>
     );
   }
-}
 
 export default Register;

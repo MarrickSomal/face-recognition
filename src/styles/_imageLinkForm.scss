@@ -1,0 +1,32 @@
+.detect-button {
+    background-color: #9932CC;
+    color: white;
+    font-size: 1.25rem;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.image-link-box {
+    background: transparent;
+    border-style: solid;
+    border-width: 2px;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+}
+
+.image-link-section {
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+}
+
+.image-text {
+    font-size: 1.5rem;
+    width: 50%;
+}
