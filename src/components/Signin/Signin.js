@@ -1,10 +1,59 @@
-import React, {useState}  from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import TextField from '@material-ui/core/TextField';
 
 function Signin(props) {
 
+  const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+  
+  /*useRef hook stores any mutable value we like, so we use that to keep track
+    of the first time the useEffect function is being run. This allows us to enusre
+    useEffect does not run on the initial page load*/
+  const isInitialMount = useRef(true);
+
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('')
+  const [submit, setSubmit] = useState(true);
 
+  // Error states, for field validation
+  let [emailError, setEmailError] = useState(false);
+  const [emailErrorText, setEmailErrorText] = useState('');
+
+  let [passwordError, setPasswordError] = useState(false);
+  const [passwordErrorText, setPasswordErrorText] = useState('');
+
+
+  //an object of all the error boolean states
+  const validationObject = {
+    emailError: emailError,
+    passwordError: passwordError,
+    submit: submit
+  }
+
+  /*if all fields have error states set to false (no errors) then send data,
+    else do not send data*/
+    const onSubmit= useCallback(() => {
+      console.log(validationObject)
+      if (Object.values(validationObject)
+      .every(item => item === false)) {
+        //onSignIn()
+        console.log("Send sign in data")
+      }
+      else {
+        return console.log("Do not send sign in data to server")
+      }
+    }, [validationObject])
+
+    //runs on every component update
+    useEffect(() => {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+      }
+      else {
+        onSubmit();
+      }
+    }, [validationObject, onSubmit] );
+
+  //Change handlers
   const onEmailChange = (event) => {
     const newEmail = event.target.value;
     setSignInEmail(newEmail);
@@ -17,7 +66,40 @@ function Signin(props) {
     console.log(signInPassword)
   }
 
-  const onSubmitSignIn = () => {
+  //Clicking on Sign in button triggers field validation checks
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmit(false);
+    handleEmailValidation();
+    handlePasswordValidation();
+  }
+
+  //Field validation checks
+  const handleEmailValidation = () => {
+
+    if(!validEmailRegex.test(signInEmail)){
+      setEmailError(true)
+      setEmailErrorText("Field is required in valid format")
+      setSubmit(true);
+    } else {
+      setEmailError(false)
+      setEmailErrorText("")
+    } 
+  }
+
+  const handlePasswordValidation = () => {
+
+    if(signInPassword.length < 6){
+      setPasswordError(true)
+      setPasswordErrorText("A password of 6 characters or more is required")
+      setSubmit(true)
+    } else {
+      setPasswordError(false)
+      setPasswordErrorText("")
+    } 
+  }
+
+  const onSignIn = () => {
     fetch('https://young-beyond-45329.herokuapp.com/signin', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -38,35 +120,41 @@ function Signin(props) {
     return (
       <article className="signin-section">
         <main className="signin-form">
-          <div className="form-width">
-            <fieldset id="sign_up" className="form-fieldset">
-              <legend className="form-legend">Sign In</legend>
-              <div className="field-spacing">
-                <label className="field-label" htmlFor="email-address">Email</label>
-                <input
-                  className="field-input"
+          <div className="signin-width">
+            <fieldset id="sign_up" className="signin-fieldset">
+              <legend className="signin-legend">Sign In</legend>
+              <div className="signin-spacing">
+                <label className="signin-label" htmlFor="email-address">Email</label>
+                <TextField
+                  className="signin-input"
                   type="email"
                   name="email-address"
                   id="email-address"
                   value={signInEmail}
                   onChange={onEmailChange}
+                  variant="outlined"
+                  error={emailError}
+                  helperText={emailErrorText}
                 />
               </div>
-              <div className="field-spacing">
-                <label className="field-label" htmlFor="password">Password</label>
-                <input
-                  className="field-input"
+              <div className="signin-spacing">
+                <label className="signin-label" htmlFor="password">Password</label>
+                <TextField
+                  className="signin-input"
                   type="password"
                   name="password"
                   id="password"
                   value={signInPassword}
                   onChange={onPasswordChange}
+                  variant="outlined"
+                  error={passwordError}
+                  helperText={passwordErrorText}
                 />
               </div>
             </fieldset>
-            <div className="field-spacing">
+            <div className="signin-spacing">
               <button
-                onClick={onSubmitSignIn}
+                onClick={handleSubmit}
                 className="signin-button"
                 type="submit"
                 value="Sign in"
