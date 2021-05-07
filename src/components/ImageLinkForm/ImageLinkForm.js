@@ -5,7 +5,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
     <div>
       <div className='image-link-section'>
       <p className='image-text'>
-        {'To detect faces in your pictures paste an image web address in the below box and click Detect!'}
+        {'Welcome! To detect faces in your pictures paste an image web address in the below box and click Detect!'}
       </p>
       </div>
         <div className='image-link-section'>

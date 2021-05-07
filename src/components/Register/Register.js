@@ -65,7 +65,7 @@ function Register(props) {
       else {
         return console.log("Do not send registration data to server")
       }
-    }, [validationObject, onRegistration])
+    }, [validationObject])
 
     //runs on every component update
     useEffect(() => {

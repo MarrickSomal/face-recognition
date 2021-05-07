@@ -1,5 +1,14 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
+import MuiAlert from '@material-ui/lab/Alert';
+
+
+//faciliates the forgotten password reset email sent pop-up
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function Signin(props) {
 
@@ -13,6 +22,9 @@ function Signin(props) {
   const [signInEmail, setSignInEmail] = useState('');
   const [signInPassword, setSignInPassword] = useState('')
   const [submit, setSubmit] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+
 
   // Error states, for field validation
   let [emailError, setEmailError] = useState(false);
@@ -21,6 +33,8 @@ function Signin(props) {
   let [passwordError, setPasswordError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState('');
 
+  let [signInError, setSignInError] = useState(false);
+  const [signInErrorText, setSignInErrorText] = useState('');
 
   //an object of all the error boolean states
   const validationObject = {
@@ -35,7 +49,7 @@ function Signin(props) {
       console.log(validationObject)
       if (Object.values(validationObject)
       .every(item => item === false)) {
-        //onSignIn()
+        onSignIn()
         console.log("Send sign in data")
       }
       else {
@@ -51,7 +65,7 @@ function Signin(props) {
       else {
         onSubmit();
       }
-    }, [validationObject, onSubmit] );
+    }, [onSubmit] );
 
   //Change handlers
   const onEmailChange = (event) => {
@@ -62,9 +76,19 @@ function Signin(props) {
   const onPasswordChange = (event) => {
     const newPassword = event.target.value;
     setSignInPassword(newPassword);
-    console.log(newPassword)
-    console.log(signInPassword)
   }
+
+  //Sign-in error pop-up handlers
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   //Clicking on Sign in button triggers field validation checks
   const handleSubmit = (e) => {
@@ -100,6 +124,7 @@ function Signin(props) {
   }
 
   const onSignIn = () => {
+    setLoading(true)
     fetch('https://young-beyond-45329.herokuapp.com/signin', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -111,9 +136,14 @@ function Signin(props) {
       .then(response => response.json())
       .then(user => {
         if (user.id) {
+          setLoading(false)
           props.loadUser(user)
           props.onRouteChange('home');
-        }
+        } else {
+          setSubmit(true)
+          setLoading(false)
+          handleClick()
+        } 
       })
   }
 
@@ -153,6 +183,11 @@ function Signin(props) {
               </div>
             </fieldset>
             <div className="signin-spacing">
+            {loading ?
+              <div>
+                <CircularProgress />
+              </div> :
+              <div>
               <button
                 onClick={handleSubmit}
                 className="signin-button"
@@ -161,6 +196,14 @@ function Signin(props) {
               >
                 Sign in
               </button>
+              </div> }
+                <div className="signin-error-message">
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                  <Alert onClose={handleClose} severity="error">
+                    System cannot find sign-in credentials, please enter different credentials or register
+                  </Alert >
+                </Snackbar>
+              </div>
             </div>
           </div>
         </main>
