@@ -117,7 +117,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    fetch(process.env.IMAGE_URL, {
+    fetch('https://young-beyond-45329.herokuapp.com/imageurl', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch(process.env.IMAGE, {
+          fetch('https://young-beyond-45329.herokuapp.com/image', {
             method: 'put',
             headers: {
               'Content-Type': 'application/json',
