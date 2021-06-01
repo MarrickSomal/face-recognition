@@ -4,7 +4,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import MuiAlert from '@material-ui/lab/Alert';
 
-
 //faciliates the forgotten password reset email sent pop-up
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,16 +24,12 @@ function Signin(props) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
-
   // Error states, for field validation
   let [emailError, setEmailError] = useState(false);
   const [emailErrorText, setEmailErrorText] = useState('');
 
   let [passwordError, setPasswordError] = useState(false);
   const [passwordErrorText, setPasswordErrorText] = useState('');
-
-  let [signInError, setSignInError] = useState(false);
-  const [signInErrorText, setSignInErrorText] = useState('');
 
   //an object of all the error boolean states
   const validationObject = {
@@ -43,29 +38,19 @@ function Signin(props) {
     submit: submit
   }
 
-  /*if all fields have error states set to false (no errors) then send data,
-    else do not send data*/
-    const onSubmit= useCallback(() => {
-      console.log(validationObject)
-      if (Object.values(validationObject)
-      .every(item => item === false)) {
-        onSignIn()
-        console.log("Send sign in data")
-      }
-      else {
-        return console.log("Do not send sign in data to server")
-      }
-    }, [validationObject])
-
     //runs on every component update
     useEffect(() => {
       if (isInitialMount.current) {
         isInitialMount.current = false;
       }
-      else {
-        onSubmit();
+      /*if all fields have error states set to false (no errors) 
+      then send data, else do not send data*/
+      else if (Object.values(validationObject)
+      .every(item => item === false)) {
+        onSignIn()
       }
-    }, [onSubmit] );
+    }, [submit] );
+
 
   //Change handlers
   const onEmailChange = (event) => {
@@ -76,6 +61,10 @@ function Signin(props) {
   const onPasswordChange = (event) => {
     const newPassword = event.target.value;
     setSignInPassword(newPassword);
+  }
+
+  const saveAuthTokenInSessions = (token) => {
+    window.sessionStorage.setItem('token', token);
   }
 
   //Sign-in error pop-up handlers
@@ -125,7 +114,7 @@ function Signin(props) {
 
   const onSignIn = () => {
     setLoading(true)
-    fetch('https://young-beyond-45329.herokuapp.com/signin', {
+    fetch(process.env.SIGNIN, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -134,17 +123,19 @@ function Signin(props) {
       })
     })
       .then(response => response.json())
-      .then(user => {
-        if (user.id) {
+      .then(data => {
+        if (data && data.success === "true") {
           setLoading(false)
-          props.loadUser(user)
+          saveAuthTokenInSessions(data.token)
+          props.loadUser(data.user)
           props.onRouteChange('home');
         } else {
           setSubmit(true)
           setLoading(false)
           handleClick()
-        } 
+        }
       })
+      .catch(console.log)
   }
 
     return (

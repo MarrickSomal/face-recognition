@@ -35,7 +35,7 @@ function Register(props) {
 
   //Function to send registration data to server
   const onRegistration = () => {
-    fetch('https://young-beyond-45329.herokuapp.com/register', {
+    fetch(process.env.REGISTER, {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -53,29 +53,18 @@ function Register(props) {
       })
   }
 
-  /*if all fields have error states set to false (no errors) then send data,
-    else do not send data*/
-    const onSubmit= useCallback(() => {
-      console.log(validationObject)
-      if (Object.values(validationObject)
-      .every(item => item === false)) {
-        onRegistration()
-        console.log("Send registration data")
-      }
-      else {
-        return console.log("Do not send registration data to server")
-      }
-    }, [validationObject])
-
     //runs on every component update
     useEffect(() => {
       if (isInitialMount.current) {
         isInitialMount.current = false;
       }
-      else {
-        onSubmit();
+      /*if all fields have error states set to false (no errors) 
+      then send data, else do not send data*/
+      else if (Object.values(validationObject)
+      .every(item => item === false)) {
+        onRegistration()
       }
-    }, [validationObject, onSubmit] );
+    }, [submit] );
   
   //Change handlers
   const onNameChange = (event) => {
