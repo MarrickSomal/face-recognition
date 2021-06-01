@@ -16,8 +16,10 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
+    "heroku-postbuild": "npm run build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
