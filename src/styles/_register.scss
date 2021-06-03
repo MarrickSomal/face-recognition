@@ -1,89 +1,89 @@
 .register-input {
-    background-color: transparent;
-    border-style: solid;
-    border-width: 1px;
-    width: 100%;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
 }
 
 .register-label {
-    display: block;
-    font-size: .875rem;
-    font-weight: 600;
-    line-height: 1.5;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .register-spacing {
-    margin-top: 2em;
+  margin-top: 2em;
 }
 
 .register-fieldset {
-    border-color: transparent;
-    border-style: solid;
-    border-width: 1px;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .register-legend {
-    font-size: 3rem;
-    font-weight: 600;
-    margin-left: 0;
-    margin-right: 0;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .register-width {
-    max-width: 30em;
+  max-width: 30em;
 }
 
 .register-button {
-    background-color: transparent;
-    border-color: #000;
-    border-style: solid;
-    border-width: 1px;
-    display: inline-block;
-    font-size: .875rem;
-    font-weight: 700;
-    margin-top: 1em;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-    transition-property: transform;
-    transition-duration: 0.25s;
-    transition-timing-function: ease-out;
-    transition-delay: 0s;
+  background-color: transparent;
+  border-color: #000;
+  border-style: solid;
+  border-width: 1px;
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-top: 1em;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition-property: transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  transition-delay: 0s;
 
-    &:active {
-        transform: scale(.9);
-    }
+  &:active {
+    transform: scale(0.9);
+  }
 
-    &:focus {
-        transform: scale(1.05);
-    }
+  &:focus {
+    transform: scale(1.05);
+  }
 
-    &:hover {
-        transform: scale(1.05);
-    }
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .register-form {
-    color: rgba(0,0,0,.8);
-    padding: 2rem;
+  color: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
 }
 
 .register-section {
-    border-color: rgba(0,0,0,.1);
-    border-radius: 0.5rem;
-    border-style: solid;
-    border-width: 1px;
-    box-shadow: 4px 4px 8px 0;
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 20rem
+  border-color: rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 4px 4px 8px 0;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 20rem;
 }

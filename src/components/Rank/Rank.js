@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class Rank extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
-      emoji: ''
-    }
+      emoji: "",
+    };
   }
 
   componentDidMount() {
@@ -14,31 +14,27 @@ class Rank extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.entries === this.props.entries) {
-      return null
+      return null;
     }
-    this.generateEmoji(this.props.entries)
+    this.generateEmoji(this.props.entries);
   }
 
   generateEmoji = (count) => {
-    fetch(`https://ljzzxkbk5f.execute-api.eu-west-2.amazonaws.com/dev/rank?rank=${count}`)
-      .then(response => response.json())
-      .then(data => this.setState({emoji: data.input}))
-      .catch(console.log)
-  }
+    fetch(
+      `https://ljzzxkbk5f.execute-api.eu-west-2.amazonaws.com/dev/rank?rank=${count}`
+    )
+      .then((response) => response.json())
+      .then((data) => this.setState({ emoji: data.input }))
+      .catch(console.log);
+  };
 
   render() {
     const { name, entries } = this.props;
     return (
       <div>
-        <div className='text'>
-          {`${name}, your current entry count is...`}
-        </div>
-        <div className='text'>
-          {entries}
-        </div>
-        <div className= 'text'>
-          {`Rank badge: ${this.state.emoji}`}
-        </div>
+        <div className="text">{`${name}, your current entry count is...`}</div>
+        <div className="text">{entries}</div>
+        <div className="text">{`Rank badge: ${this.state.emoji}`}</div>
       </div>
     );
   }

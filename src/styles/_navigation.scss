@@ -1,16 +1,15 @@
 .navigation-bar {
-    display: flex; 
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .navigation-links {
-    background: transparent;
-    border-color: transparent;
-    color: #000;
-    font-size: 1.5rem;
-    opacity: 1;
-    padding: 1rem;
-    text-decoration: underline;
-    transition: opacity .15s ease-in;
+  background: transparent;
+  border-color: transparent;
+  color: #000;
+  font-size: 1.5rem;
+  opacity: 1;
+  padding: 1rem;
+  text-decoration: underline;
+  transition: opacity 0.15s ease-in;
 }
-
