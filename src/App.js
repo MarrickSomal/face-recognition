@@ -45,13 +45,13 @@ const initialState = {
 class App extends Component {
   constructor() {
     super();
-    this.state = this.state = initialState;
+    this.state = initialState;
   }
 
   componentDidMount() {
     const token = window.sessionStorage.getItem('token');
     if (token) {
-      fetch('http://localhost:3000/signin', {
+      fetch('https://young-beyond-45329.herokuapp.com/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ class App extends Component {
         .then(response => response.json())
         .then(data => {
           if (data && data.id) {
-            fetch(`http://localhost:3000/profile/${data.id}`, {
+            fetch(`https://young-beyond-45329.herokuapp.com/profile/${data.id}`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -88,8 +88,7 @@ class App extends Component {
       email: data.email,
       entries: data.entries,
       joined: data.joined
-    }
-    })
+    }})
   }
 
   calculateFaceLocation = (data) => {

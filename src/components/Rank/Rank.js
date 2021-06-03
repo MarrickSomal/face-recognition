@@ -30,13 +30,13 @@ class Rank extends Component {
     const { name, entries } = this.props;
     return (
       <div>
-        <div className='white f3'>
+        <div className='text'>
           {`${name}, your current entry count is...`}
         </div>
-        <div className='white f1'>
+        <div className='text'>
           {entries}
         </div>
-        <div className= 'white f3'>
+        <div className= 'text'>
           {`Rank badge: ${this.state.emoji}`}
         </div>
       </div>

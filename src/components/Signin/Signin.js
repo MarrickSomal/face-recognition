@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
@@ -85,6 +85,7 @@ function Signin(props) {
     setSubmit(false);
     handleEmailValidation();
     handlePasswordValidation();
+    console.log(validationObject)
   }
 
   //Field validation checks
@@ -124,10 +125,10 @@ function Signin(props) {
     })
       .then(response => response.json())
       .then(data => {
-        if (data && data.success === "true") {
+        if (data.id !== null) {
           setLoading(false)
           saveAuthTokenInSessions(data.token)
-          props.loadUser(data.user)
+          props.loadUser(data)
           props.onRouteChange('home');
         } else {
           setSubmit(true)
