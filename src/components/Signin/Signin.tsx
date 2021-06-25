@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Snackbar from "@material-ui/core/Snackbar";
 import TextField from "@material-ui/core/TextField";
-import MuiAlert from "@material-ui/lab/Alert";
+import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
 
-//faciliates the forgotten password reset email sent pop-up
-function Alert(props) {
+//faciliates the alert pop-up
+function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function Signin(props) {
+function Signin(props: any) {
   const validEmailRegex = RegExp(
     /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
   );
@@ -53,17 +53,17 @@ function Signin(props) {
   }, [submit]);
 
   //Change handlers
-  const onEmailChange = (event) => {
+  const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newEmail = event.target.value;
     setSignInEmail(newEmail);
   };
 
-  const onPasswordChange = (event) => {
+  const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newPassword = event.target.value;
     setSignInPassword(newPassword);
   };
 
-  const saveAuthTokenInSessions = (token) => {
+  const saveAuthTokenInSessions = (token: any) => {
     window.sessionStorage.setItem("token", token);
   };
 
@@ -72,7 +72,7 @@ function Signin(props) {
     setOpen(true);
   };
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
@@ -80,7 +80,7 @@ function Signin(props) {
   };
 
   //Clicking on Sign in button triggers field validation checks
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmit(false);
     handleEmailValidation();
