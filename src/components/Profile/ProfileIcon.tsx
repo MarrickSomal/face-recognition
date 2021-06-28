@@ -6,12 +6,22 @@ import {
   DropdownItem,
 } from "reactstrap";
 
-class ProfileIcon extends React.Component {
-  constructor(props) {
+interface ProfileProps {
+  toggleModal: any,
+  loadUser: any,
+  onRouteChange: any,
+}
+
+interface ProfileState {
+  dropdownOpen: boolean,
+}
+
+class ProfileIcon extends React.Component<ProfileProps, ProfileState> {
+  constructor(props: ProfileProps) {
     super(props);
     this.state = {
       dropdownOpen: false,
-    };
+    } as ProfileState;
   }
 
   toggle = () => {

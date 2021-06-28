@@ -1,6 +1,11 @@
 import React from "react";
 
-const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
+interface ImageLinkForm {
+  onInputChange: any,
+  onButtonSubmit: any,
+}
+
+const ImageLinkForm = ({ onInputChange, onButtonSubmit }: ImageLinkForm) => {
   return (
     <div>
       <div className="image-link-section">

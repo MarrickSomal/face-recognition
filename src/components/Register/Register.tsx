@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 
-function Register(props) {
+function Register(props: any) {
   const validEmailRegex = RegExp(
     /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
   );
@@ -68,23 +68,23 @@ function Register(props) {
   }, [submit]);
 
   //Change handlers
-  const onNameChange = (event) => {
+  const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newName = event.target.value;
     setName(newName);
   };
 
-  const onEmailChange = (event) => {
+  const onEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newEmail = event.target.value;
     setEmail(newEmail);
   };
 
-  const onPasswordChange = (event) => {
+  const onPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
   };
 
   //Clicking on Sign in button triggers field validation checks
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setSubmit(false);
     handleNameValidation();

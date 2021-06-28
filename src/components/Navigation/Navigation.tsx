@@ -1,11 +1,18 @@
 import React from "react";
 import ProfileIcon from "../Profile/ProfileIcon";
 
-const Navigation = ({ onRouteChange, isSignedIn, toggleModal }) => {
+interface Navigation {
+  onRouteChange: any,
+  isSignedIn: any,
+  toggleModal: any,
+  loadUser: any
+}
+
+const Navigation = ({ onRouteChange, isSignedIn, toggleModal, loadUser }: Navigation) => {
   if (isSignedIn) {
     return (
       <nav className="navigation-bar">
-        <ProfileIcon onRouteChange={onRouteChange} toggleModal={toggleModal} />
+        <ProfileIcon onRouteChange={onRouteChange} toggleModal={toggleModal} loadUser={loadUser}/>
       </nav>
     );
   } else {

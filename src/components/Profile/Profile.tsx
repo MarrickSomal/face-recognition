@@ -1,22 +1,35 @@
-import React, { Component } from "react";
+import React, {ChangeEvent, Component } from "react";
 
-class Profile extends Component {
-  constructor(props) {
+interface ProfileProps {
+  user: any,
+  toggleModal: any,
+  loadUser: any
+}
+
+interface ProfileState {
+  name: string,
+  age: string,
+  pet: string,
+}
+
+const requestHeaders: HeadersInit = new Headers();
+requestHeaders.set('Content-Type', 'application/json')
+requestHeaders.append('Authorization', 'window.sessionStorage.getItem("token")');
+
+class Profile extends Component<ProfileProps, ProfileState> {
+  constructor(props: ProfileProps) {
     super(props);
     this.state = {
       name: this.props.user.name,
       age: this.props.user.age,
       pet: this.props.user.pet,
-    };
+    } as ProfileState;
   }
 
-  onProfileUpdate = (data) => {
+  onProfileUpdate = (data: any) => {
     fetch(`https://young-beyond-45329.herokuapp.com/profile/${this.props.user.id}`, {
       method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: window.sessionStorage.getItem("token"),
-      },
+      headers: requestHeaders,
       body: JSON.stringify({
         formInput: data,
       }),
@@ -25,12 +38,13 @@ class Profile extends Component {
         if (resp.status === 200 || resp.status === 304) {
           this.props.toggleModal();
           this.props.loadUser({ ...this.props.user, ...data });
+          console.log(this.props.user)
         }
       })
       .catch(console.log);
   };
 
-  onFormChange = (event) => {
+  onFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     switch (event.target.name) {
       case "user-name":
         this.setState({ name: event.target.value });

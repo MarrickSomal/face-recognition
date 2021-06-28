@@ -1,11 +1,16 @@
 import React from "react";
 
-const FaceRecognition = ({ imageUrl, boxes }) => {
+interface FaceRecognition {
+  imageUrl: any,
+  boxes: any,
+}
+
+const FaceRecognition = ({ imageUrl, boxes }: FaceRecognition) => {
   return (
     <div className="face-section">
       <div className="face-container">
         <img id="inputimage" alt="" src={imageUrl} className="face-image" />
-        {boxes.map((box) => (
+        {boxes.map((box: any) => (
           <div
             key={`box${box.topRow}${box.rightCol}`}
             className="bounding-box"
