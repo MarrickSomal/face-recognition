@@ -50,7 +50,7 @@ class App extends Component {
   componentDidMount() {
     const token = window.sessionStorage.getItem("token");
     if (token) {
-      fetch("https://young-beyond-45329.herokuapp.com/signin", {
+      fetch("http://localhost:3000/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ class App extends Component {
         .then((data) => {
           if (data && data.id) {
             fetch(
-              `https://young-beyond-45329.herokuapp.com/profile/${data.id}`,
+              `http://localhost:3000/profile/${data.id}`,
               {
                 method: "GET",
                 headers: {
@@ -120,7 +120,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch("https://young-beyond-45329.herokuapp.com/imageurl", {
+    fetch("http://localhost:3000/imageurl", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ class App extends Component {
       .then((response) => response.json())
       .then((response) => {
         if (response) {
-          fetch("https://young-beyond-45329.herokuapp.com/image", {
+          fetch("http://localhost:3000/image", {
             method: "put",
             headers: {
               "Content-Type": "application/json",

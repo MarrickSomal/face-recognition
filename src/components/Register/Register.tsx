@@ -36,7 +36,7 @@ function Register(props: any) {
 
   //Function to send registration data to server
   const onRegistration = () => {
-    fetch("https://young-beyond-45329.herokuapp.com/register", {
+    fetch("http://localhost:3000/register", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

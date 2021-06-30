@@ -85,7 +85,6 @@ function Signin(props: any) {
     setSubmit(false);
     handleEmailValidation();
     handlePasswordValidation();
-    console.log(validationObject);
   };
 
   //Field validation checks
@@ -113,7 +112,7 @@ function Signin(props: any) {
 
   const onSignIn = () => {
     setLoading(true);
-    fetch("https://young-beyond-45329.herokuapp.com/signin", {
+    fetch("http://localhost:3000/signin", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -123,10 +122,10 @@ function Signin(props: any) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.id !== null) {
+        if (data && data.success === "true") {
           setLoading(false);
           saveAuthTokenInSessions(data.token);
-          props.loadUser(data);
+          props.loadUser(data.user);
           props.onRouteChange("home");
         } else {
           setSubmit(true);
