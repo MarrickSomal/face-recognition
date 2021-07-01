@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component } from "react";
+import React, {Component} from "react";
 
 class Profile extends Component {
   constructor(props) {

@@ -46,9 +46,10 @@ function Register(props: any) {
       }),
     })
       .then((response) => response.json())
-      .then((user) => {
-        if (user.id) {
-          props.loadUser(user);
+      .then((data) => {
+        if (data.user.id && data.token) {
+          window.sessionStorage.setItem('token', data.token)
+          props.loadUser(data.user)
           props.onRouteChange("home");
         }
       });
